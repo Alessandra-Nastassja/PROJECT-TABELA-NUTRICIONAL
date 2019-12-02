@@ -68,3 +68,6 @@
 .no-display{
     display: none;
 }
+table tbody tr td:nth-child(+n+2){
+    text-align: center;
+}

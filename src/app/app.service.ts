@@ -22,4 +22,9 @@ export class AppService {
     return this.http.get(this.urlCors + "https://taco-food-api.herokuapp.com/api/v1/food")
       .map(res => res.json()); 
   }
+
+  getFoodById(id){
+    return this.http.get(this.urlCors + "https://taco-food-api.herokuapp.com/api/v1/food/"+ id)
+    .map(res => res.json()); 
+  }
 }
