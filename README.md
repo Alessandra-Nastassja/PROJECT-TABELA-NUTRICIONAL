@@ -16,7 +16,7 @@ Projeto foi criado com o intuíto de praticar alguns conhecimentos em Angular e 
 ******
 ## *O que foi aprendido ?* 📚
 
-- [Consumir API]()
+- [Consumir API](https://taco-food-api.herokuapp.com/)
 - [Data Binding]()
 
 ******
