@@ -14,7 +14,7 @@ Projeto foi criado com o intuíto de praticar alguns conhecimentos em Angular e 
 </p>
 
 ******
-## *O que foi aprendido ?* 📚
+## *Foi estudado* 📚
 
 - [Consumir API](https://taco-food-api.herokuapp.com/)
 - [Data Binding]()
@@ -31,4 +31,8 @@ Projeto foi criado com o intuíto de praticar alguns conhecimentos em Angular e 
 
 ******
 ## Resultado: :heavy_check_mark:
+Foi pensando em um layout rápido e simples.
+
 ![](https://user-images.githubusercontent.com/27302446/81488378-49159400-923e-11ea-983c-25ea7b0cbc18.png)
+
+> Obs.: Alguns pontos precisam ser melhorados. 
