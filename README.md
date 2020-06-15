@@ -1,7 +1,7 @@
 <h1 align="center">
   Projeto: TABELA NUTRICIONAL
 </h1>
-<p align="center"
+<p align="center">
 Projeto foi criado com o intuíto de praticar alguns conhecimentos em Angular e Typecript. </p>
 <p align="center">
   <img alt="GitHub language count" src="https://img.shields.io/github/repo-size/Alessandra-Nastassja/PROJECT-TABELA-NUTRICIONAL?color=%239175db">
