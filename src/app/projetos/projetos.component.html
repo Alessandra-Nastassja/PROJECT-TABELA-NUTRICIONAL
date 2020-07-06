@@ -22,13 +22,43 @@
     </div>
 </div>
 
-<!-- Feed de comidas -->
-<div class="row" id="comidas">
+<div class="row" class="comidas">
     <div class="jumbotron">
         <h1 class="display-4">Tabela nutricional</h1>
         <p class="lead">This is a simple hero unit, a simple jumbotron-style component for calling extra attention to
             featured content or information.</p>
     </div>
+    <hr>
+    <div>
+        <a>Filtrar</a>
+        <div id="filtrar">
+            <p>Filtar por :</p>
+            <a>Minimizar aqui</a>
+        </div>
+        <div>
+            <div class="input-group mb-3">
+                <input type="search" class="form-control" placeholder="Digite aqui o seu produto..." maxlength="100"
+                    (keyup)="$event.key == 'Enter' && setFilteredProducts($event)" [(ngModel)]="querySearch">
+                <div class="input-group-append">
+                    <button class="btn btn-outline-secondary" type="button"
+                        (click)="setFilteredProducts(querySearch); showSuggestions = true"
+                        [disabled]="querySearch.length < 1">Button</button>
+                </div>
+            </div>
+            <ul class=""
+                *ngIf="showSuggestions && product.filteredProducts.length">
+                <li *ngFor="let item of product.filteredProducts | slice:0:20">
+                    <a (click)="setProductId(item.id); showSuggestions = false" [innerText]="item.description"></a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div [ngClass]="isLoading? 'loading':''">
+    <span></span>
+</div>
+<!-- Feed de comidas -->
+<div class="row comidas">
     <div class="col-3 mt-2 mb-2" *ngFor="let produto of comidas">
         <div class="card" style="width: 14rem;">
             <div class="card-body">

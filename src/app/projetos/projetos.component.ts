@@ -15,6 +15,14 @@ export class ProjetosComponent implements OnInit {
   filterCategoriaComida = [];
   idItem: any;
   idProduto = '';
+  isLoading = true;
+  querySearch = '';
+  showSuggestions: boolean;
+  productId: any;
+
+  product = {
+    filteredProducts: []
+  }
 
   constructor(private appService: AppService) { }
 
@@ -27,7 +35,11 @@ export class ProjetosComponent implements OnInit {
   getFood() {
     this.appService.getFood().subscribe(
       success => {
-        this.comidas = success;
+        setTimeout(() => {
+          this.comidas = success;
+
+          this.isLoading = false;
+        }, 1000);
       }
     );
   }
@@ -53,8 +65,7 @@ export class ProjetosComponent implements OnInit {
   getCategorie() {
     this.appService.getCategories().subscribe(
       success => {
-        this.categorias = success
-        // console.log(this.categorias);
+        this.categorias = success;
       }
     );
   }
@@ -63,4 +74,42 @@ export class ProjetosComponent implements OnInit {
     this.idProduto = _idProduto.target.id;
   }
 
+  setProductId(_productId = ''){
+   this.productId = _productId;
+
+   console.log('setProductId: ', this.productId);
+
+   this.appService.getFoodById(this.productId)
+   .subscribe(
+     success => {
+       this.comidas = success;
+     }
+   )
+  }
+
+  setFilteredProducts(_event){
+    let search;
+
+    if(_event.target == undefined){
+      search = _event.toLowerCase();
+    }else{
+      search = _event.target.value.toLowerCase();
+    }
+
+    if(!search){
+      this.setProductId();
+      return;
+    }
+
+    // Elimita acentos e caracteres especiais;
+    search = search.replace(/[ÀÁÂÃÄÅ]/g, "A");
+    search = search.replace(/[àáâãäå]/g, "a");
+    search = search.replace(/[ÈÉÊË]/g, "E");
+    search = search.replace(/[^a-z0-9]/gi,'');
+
+    this.showSuggestions = true;
+    this.product.filteredProducts = this.comidas.filter(e => e.description.toLowerCase().includes(search));
+
+    console.log('setFilteredProducts: ', this.product.filteredProducts);
+  }
 }

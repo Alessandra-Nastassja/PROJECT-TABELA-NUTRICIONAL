@@ -20,44 +20,44 @@
                     <tbody>
                         <tr>
                             <td>{{ objectNameTranslate[0] }}</td>
-                            <td>{{ item.attributes.energy.kcal | number:'1.2-2' }}
+                            <td>{{ item.attributes.energy?.kcal | number:'1.2-2' }}
                                 <span> kcal = </span>
-                                {{ item.attributes.energy.kj | number:'1.2-2' }}
+                                {{ item.attributes.energy?.kj | number:'1.2-2' }}
                                 <span> kj </span>
                             </td>
-                            <td>{{ item.attributes.carbohydrate.qty | number:'1.0-0' }}
+                            <td>{{ item.attributes.carbohydrate?.qty | number:'1.0-0' }}
                             </td>
                         </tr>
                         <tr>
                             <td>{{ objectNameTranslate[1] }}</td>
-                            <td>{{ item.attributes.carbohydrate.qty | number:'1.2-2' }}
+                            <td>{{ item.attributes.carbohydrate?.qty | number:'1.2-2' }}
                                 <span> kcal</span>
                             </td>
-                            <td>{{ item.attributes.carbohydrate.qty | number:'1.0-0' }}
+                            <td>{{ item.attributes.carbohydrate?.qty | number:'1.0-0' }}
                             </td>
                         </tr>
                         <tr>
                             <td>{{ objectNameTranslate[2] }}</td>
-                            <td>{{ item.attributes.protein.qty | number:'1.2-2' }}
+                            <td>{{ item.attributes.protein?.qty | number:'1.2-2' }}
                                 <span> kcal</span>
                             </td>
-                            <td>{{ item.attributes.carbohydrate.qty | number:'1.0-0' }}
+                            <td>{{ item.attributes.carbohydrate?.qty | number:'1.0-0' }}
                             </td>
                         </tr>
                         <tr>
                             <td>{{ objectNameTranslate[3] }}</td>
                             <td>{{ item.attributes.fatty_acids?.saturated.qty}}
-                                <span>{{ item.attributes.carbohydrate.unit }}</span>
+                                <span>{{ item.attributes.carbohydrate?.unit }}</span>
                             </td>
-                            <td>{{ item.attributes.carbohydrate.qty | number:'1.0-0' }}
+                            <td>{{ item.attributes.carbohydrate?.qty | number:'1.0-0' }}
                             </td>
                         </tr>
                         <tr>
                             <td>{{ objectNameTranslate[4] }}</td>
-                            <td>{{ item.attributes.energy.kcal | number:'1.2-2' }}
+                            <td>{{ item.attributes.energy?.kcal | number:'1.2-2' }}
                                 <span> kcal</span>
                             </td>
-                            <td>{{ item.attributes.carbohydrate.qty | number: '1.0-0' }}
+                            <td>{{ item.attributes.carbohydrate?.qty | number: '1.0-0' }}
                             </td>
                         </tr>
                     </tbody>
