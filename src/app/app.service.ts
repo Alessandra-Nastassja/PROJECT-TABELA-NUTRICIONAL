@@ -10,21 +10,21 @@ export class AppService {
 
   getCategories() {
     return this.http.get("http://taco-food-api.herokuapp.com/api/v1/category")
-      .map(res => res.json());   
+      .map((res:any) => res.json());   
   }
 
   getFilterCategories(idCategoria){
     return this.http.get("https://taco-food-api.herokuapp.com/api/v1/category/"+ idCategoria + "/food")
-    .map(res => res.json());
+    .map((res:any) => res.json());
   }
 
   getFood(){
     return this.http.get("https://taco-food-api.herokuapp.com/api/v1/food")
-      .map(res => res.json()); 
+      .map((res:any) => res.json()); 
   }
 
   getFoodById(id){
     return this.http.get("https://taco-food-api.herokuapp.com/api/v1/food/"+ id)
-    .map(res => res.json()); 
+    .map((res:any) => res.json()); 
   }
 }
