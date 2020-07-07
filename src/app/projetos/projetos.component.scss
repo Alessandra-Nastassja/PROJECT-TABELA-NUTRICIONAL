@@ -66,7 +66,7 @@
 }
 
 .no-display{
-    display: none;
+    display: none !important;
 }
 table tbody tr td:nth-child(+n+2){
     text-align: center;
@@ -91,4 +91,12 @@ table tbody tr td:nth-child(+n+2){
 #filtrar{
     display: flex;
     justify-content: space-between;
+    margin: 15px 0px;
+}
+.btn-filter{
+    background-color: #007BFE;
+    color: #fff !important;
+    padding: 8px 12px;
+    border-radius: 15px;
+    cursor: pointer;
 }

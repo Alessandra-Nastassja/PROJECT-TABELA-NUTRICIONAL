@@ -19,6 +19,7 @@ export class ProjetosComponent implements OnInit {
   querySearch = '';
   showSuggestions: boolean;
   productId: any;
+  toggleBtn = true;
 
   product = {
     filteredProducts: []
@@ -111,5 +112,9 @@ export class ProjetosComponent implements OnInit {
     this.product.filteredProducts = this.comidas.filter(e => e.description.toLowerCase().includes(search));
 
     console.log('setFilteredProducts: ', this.product.filteredProducts);
+  }
+
+  toggle(){
+    this.toggleBtn = !this.toggleBtn;
   }
 }
