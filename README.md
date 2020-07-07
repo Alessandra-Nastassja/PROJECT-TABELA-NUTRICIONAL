@@ -1,5 +1,3 @@
-# PROECT-TABELA-NUTRICIONAL
-
 <h1 align="center">
   Projeto: TABELA NUTRICIONAL
 </h1>
@@ -26,6 +24,7 @@ Projeto foi criado com o intuíto de praticar alguns conhecimentos em Angular e 
 ### *Tecnologias usadas:*
 - [Angular]();
 - [Typescript]()
+- Data driven
 
 ###  *Pré-requisitos:* 📌
 1. Ter o **[Node js](https://nodejs.org/en/) instalado**;
@@ -35,6 +34,6 @@ Projeto foi criado com o intuíto de praticar alguns conhecimentos em Angular e 
 ## Resultado: :heavy_check_mark:
 Foi pensando em um layout rápido e simples.
 
-![](https://user-images.githubusercontent.com/27302446/81488378-49159400-923e-11ea-983c-25ea7b0cbc18.png)
+![Screenshot from 2020-07-06 22-38-37](https://user-images.githubusercontent.com/27302446/86685122-93668780-bfd9-11ea-8664-91f4ed5cb874.png)
 
 > Obs.: Alguns pontos precisam ser melhorados. 
