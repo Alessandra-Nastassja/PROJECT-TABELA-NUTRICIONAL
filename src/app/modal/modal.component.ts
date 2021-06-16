@@ -10,6 +10,10 @@ import { AppService } from './../app.service';
 })
 export class ModalComponent implements OnInit, OnChanges {
 
+  loading = {
+    detalheItem: true
+  }
+
   @Input() idProduto = []
   objectNameTranslate: any = []
   infoComida = []
@@ -25,9 +29,13 @@ export class ModalComponent implements OnInit, OnChanges {
   }
 
   getInfoProdutos(){
-    this.appService.getFoodById(this.idProduto).subscribe(
+    const endpoint = "https://taco-food-api.herokuapp.com/api/v1/food/";
+
+    this.appService.getFoodById(endpoint, this.idProduto)
+    .finally(() => this.loading.detalheItem = false)
+    .subscribe(
       success => {
-        this.infoComida = success
+        this.infoComida = success;
         this.translate = this.infoComida[0].attributes
         let objectName = (Object.keys(this.translate))
 
@@ -53,6 +61,10 @@ export class ModalComponent implements OnInit, OnChanges {
               break;
           }
         })
+      },
+      error => {
+        error == 500 && 'Item indisponível';
+        error == 404 && 'Nenhuma informação por aqui';
       });
   }
 
