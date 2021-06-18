@@ -4,27 +4,26 @@ import { Http } from '@angular/http'
 
 @Injectable()
 export class AppService {
-  urlCors = 'https://cors-anywhere.herokuapp.com/';
 
   constructor(private http: Http) {}
 
-  getCategories() {
-    return this.http.get("http://taco-food-api.herokuapp.com/api/v1/category")
+  getCategories(_endpoint) {
+    return this.http.get(_endpoint)
       .map((res:any) => res.json());   
   }
 
-  getFilterCategories(idCategoria){
-    return this.http.get("https://taco-food-api.herokuapp.com/api/v1/category/"+ idCategoria + "/food")
+  getFilterCategories(_endpoint){
+    return this.http.get(_endpoint)
     .map((res:any) => res.json());
   }
 
-  getFood(){
-    return this.http.get("https://taco-food-api.herokuapp.com/api/v1/food")
+  getFood(_endpoint){
+    return this.http.get(_endpoint)
       .map((res:any) => res.json()); 
   }
 
-  getFoodById(id){
-    return this.http.get("https://taco-food-api.herokuapp.com/api/v1/food/"+ id)
+  getFoodById(_endpoint, id){
+    return this.http.get(_endpoint + id)
     .map((res:any) => res.json()); 
   }
 }

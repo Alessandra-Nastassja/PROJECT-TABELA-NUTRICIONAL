@@ -19,7 +19,7 @@
                     </thead>
                     <tbody>
                         <tr>
-                            <td>{{ objectNameTranslate[0] }}</td>
+                            <td [innerText]="objectNameTranslate[0]"></td>
                             <td>{{ item.attributes.energy?.kcal | number:'1.2-2' }}
                                 <span> kcal = </span>
                                 {{ item.attributes.energy?.kj | number:'1.2-2' }}
@@ -29,7 +29,7 @@
                             </td>
                         </tr>
                         <tr>
-                            <td>{{ objectNameTranslate[1] }}</td>
+                            <td [innerText]="objectNameTranslate[1]"></td>
                             <td>{{ item.attributes.carbohydrate?.qty | number:'1.2-2' }}
                                 <span> kcal</span>
                             </td>
@@ -37,7 +37,7 @@
                             </td>
                         </tr>
                         <tr>
-                            <td>{{ objectNameTranslate[2] }}</td>
+                            <td [innerText]="objectNameTranslate[2]"></td>
                             <td>{{ item.attributes.protein?.qty | number:'1.2-2' }}
                                 <span> kcal</span>
                             </td>
@@ -45,7 +45,7 @@
                             </td>
                         </tr>
                         <tr>
-                            <td>{{ objectNameTranslate[3] }}</td>
+                            <td [innerText]="objectNameTranslate[3]"></td>
                             <td>{{ item.attributes.fatty_acids?.saturated.qty}}
                                 <span>{{ item.attributes.carbohydrate?.unit }}</span>
                             </td>
@@ -53,7 +53,7 @@
                             </td>
                         </tr>
                         <tr>
-                            <td>{{ objectNameTranslate[4] }}</td>
+                            <td [innerText]="objectNameTranslate[4]"></td>
                             <td>{{ item.attributes.energy?.kcal | number:'1.2-2' }}
                                 <span> kcal</span>
                             </td>

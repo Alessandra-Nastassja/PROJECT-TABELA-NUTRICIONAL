@@ -1,4 +1,6 @@
-import { Component, OnInit, Input, OnChanges } from '@angular/core';
+import { Component, Input, OnChanges } from '@angular/core';
+
+import { environment } from '../../environments/environment';
 
 import { AppService } from './../app.service';
 
@@ -8,26 +10,33 @@ import { AppService } from './../app.service';
   styleUrls: ['./modal.component.scss'],
   providers: [AppService]
 })
-export class ModalComponent implements OnInit, OnChanges {
+export class ModalComponent implements OnChanges {
+
+  loading = { detalheItem: true }
 
   @Input() idProduto = []
+
+  alerts = [];
+
+  // FIXME: so, try think another thing
   objectNameTranslate: any = []
   infoComida = []
   translate = []
 
   constructor(private appService: AppService) { }
 
-  ngOnInit() {    
-  }
-
   ngOnChanges(){
-    this.getInfoProdutos();
+    this.idProduto && this.getInfoProdutos();
   }
 
   getInfoProdutos(){
-    this.appService.getFoodById(this.idProduto).subscribe(
+    const endpoint = `${environment.tacoFoods}/food/`;
+
+    this.appService.getFoodById(endpoint, this.idProduto)
+    .finally(() => this.loading.detalheItem = false)
+    .subscribe(
       success => {
-        this.infoComida = success
+        this.infoComida = success;
         this.translate = this.infoComida[0].attributes
         let objectName = (Object.keys(this.translate))
 
@@ -53,7 +62,10 @@ export class ModalComponent implements OnInit, OnChanges {
               break;
           }
         })
+      },
+      error => {
+        error == 500 && this.alerts.push({message: 'Listagem indisponível', color: 'alert-danger'});
+        error == 404 && this.alerts.push({message: 'Nenhuma informação por aqui', color: 'alert-warning'});
       });
   }
-
 }

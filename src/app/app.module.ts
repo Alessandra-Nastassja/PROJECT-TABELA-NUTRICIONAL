@@ -4,14 +4,18 @@ import { HttpModule } from '@angular/http';
 import { FormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
-import { ProjetosComponent } from './projetos/projetos.component';
+import { FoodComponent } from './food/food.component';
 import { ModalComponent } from './modal/modal.component';
+import { MenuComponent } from './menu/menu.component';
+import { AlertComponent } from './alert/alert.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    ProjetosComponent,
+    FoodComponent,
     ModalComponent,
+    MenuComponent,
+    AlertComponent,
   ],
   imports: [
     BrowserModule,

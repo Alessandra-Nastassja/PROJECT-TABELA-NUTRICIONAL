@@ -1,0 +1,34 @@
+<app-modal [idProduto]="idProduto"></app-modal>
+<app-alert [alerts]="alerts"></app-alert>
+
+<!-- Filter -->
+<div class="row mt-5">
+    <div class="col-md-5">
+        <small>Selecione uma categoria:</small>
+        <select class="custom-select" (change)="idCategory($event)">
+            <option selected disabled>Escolha uma categoria</option>
+            <option [value]="item.id" *ngFor="let item of categories">
+                <span [innerText]="item.category"></span>
+            </option>
+        </select>
+    </div>
+</div>
+
+<!-- Feed de comidas -->
+<div class="row comidas mt-4" [ngClass]="loading.food ? 'loading': ''">
+    <div class="col-3 mt-2 mb-2" *ngFor="let food of foods">
+        <div class="card" style="width: 14rem;">
+            <div class="card-body">
+                <a class="card-title" data-toggle="modal" data-target="#produtoModal" [innerText]="food.description"
+                    [id]="food.id" (click)="idProduto = $event.target.id">
+                </a>
+                <p>
+                    Porção de
+                    <span class="card-text" [innerText]="food.base_qty"></span>
+                    <span class="card-text" [innerText]="food.base_unit"></span>
+                </p>
+                <a class="btn btn-primary float-lg-right btn-sm text-white">+</a>
+            </div>
+        </div>
+    </div>
+</div>
