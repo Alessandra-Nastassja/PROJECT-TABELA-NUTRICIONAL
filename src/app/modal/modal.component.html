@@ -9,7 +9,7 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <div class="modal-body">
+            <div class="modal-body" *ngIf="item.description">
                 <div class="d-flex justify-content-center">
                     <p class="h5" [innerText]="item.description"></p>
                     <small class="ml-2">
@@ -31,30 +31,30 @@
                                 <ng-container *ngIf="attr.attribute == 'energy'">
                                     <td [innerText]="attr.name"></td>
                                     <td>
-                                        <span [innerText]="(item.attributes.energy.kcal | number:'1.2-2') + 'kcal = '"></span>
-                                        <span [innerText]="(item.attributes.energy.kj | number:'1.2-2') + 'kj'"></span>
+                                        <span [innerText]="(item.attributes.energy.kcal | number:'1.2-2') + ' kcal = '"></span>
+                                        <span [innerText]="(item.attributes.energy.kj | number:'1.2-2') + ' kj'"></span>
                                     </td>
                                 </ng-container>
 
-                                <ng-container *ngIf="attr.attribute == 'carbohydrate'">
+                                <ng-container *ngIf="attr.attribute == 'carbohydrate' && item.attributes.carbohydrate.qty != 'NA'">
                                     <td [innerText]="attr.name"></td>
                                     <td>{{ item.attributes.carbohydrate.qty | number:'1.2-2' }}
                                         <span [innerText]="item.attributes.carbohydrate.unit"></span>
                                     </td>
                                 </ng-container>
-                                <ng-container *ngIf="attr.attribute == 'protein'">
+                                <ng-container *ngIf="attr.attribute == 'protein' && item.attributes.protein.qty != 'NA'">
                                     <td [innerText]="attr.name"></td>
                                     <td>{{ item.attributes.protein.qty | number:'1.2-2' }}
                                         <span [innerText]="item.attributes.protein.unit"></span>
                                     </td>
                                 </ng-container>
-                                <ng-container *ngIf="attr.attribute == 'fiber'">
+                                <ng-container *ngIf="attr.attribute == 'fiber' && item.attributes.fiber.qty != 'NA'">
                                     <td [innerText]="attr.name"></td>
                                     <td>{{ item.attributes.fiber.qty | number:'1.2-2' }}
                                         <span [innerText]="item.attributes.fiber.unit"></span>
                                     </td>
                                 </ng-container>
-                                <ng-container *ngIf="attr.attribute == 'sodium'">
+                                <ng-container *ngIf="attr.attribute == 'sodium' && item.attributes.sodium.qty != 'NA'">
                                     <td [innerText]="attr.name"></td>
                                     <td>{{ item.attributes.sodium.qty | number:'1.2-2' }}
                                         <span [innerText]="item.attributes.sodium.unit"></span>

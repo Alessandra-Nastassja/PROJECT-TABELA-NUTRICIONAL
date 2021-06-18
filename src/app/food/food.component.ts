@@ -18,9 +18,27 @@ export class FoodComponent implements OnInit {
   productId: string;
 
   categories: Array<Object>
-  foods: Array<Object>
+  foods: any
 
   alerts = [];
+
+  translateCategories = [
+    { id: 1, category: "Cereais e derivados" },
+    { id: 2, category: "Verduras, hortaliças e derivados" },
+    { id: 3, category: "Frutas e derivados" },
+    { id: 4, category: "Gorduras e óleos" },
+    { id: 5, category: "Pescados e frutos do mar" },
+    { id: 6, category: "Carnes e derivados" },
+    { id: 7, category: "Leite e derivados" },
+    { id: 8, category: "Bebidas (alcoólicas e não alcoólicas)" },
+    { id: 9, category: "Ovos e derivados" },
+    { id: 10, category: "Produtos açucarados" },
+    { id: 11, category: "Miscelâneas" },
+    { id: 12, category: "Outros alimentos industrializados" },
+    { id: 13, category: "Alimentos preparados" },
+    { id: 14, category: "Leguminosas e derivados" },
+    { id: 15, category: "Nozes e sementes" }
+  ]
 
   constructor(
     private appService: AppService) { }
@@ -34,32 +52,34 @@ export class FoodComponent implements OnInit {
     const endpoint = `${environment.tacoFoods}/food`;
 
     this.appService.getFood(endpoint)
-    .finally(() => this.loading.food = false)
-    .subscribe(
-      success => {
+      .finally(() => this.loading.food = false)
+      .subscribe(
+        success => {
           this.foods = success;
-      },error => {
-        error == 500 && 'Listagem indisponível';
-        error == 404 && 'Nenhuma informação por aqui';
-      }
-    );
+          
+          this.setCategories();
+        }, error => {
+          error == 500 && 'Listagem indisponível';
+          error == 404 && 'Nenhuma informação por aqui';
+        }
+      );
   }
 
-  categoriesList(): void{
+  categoriesList(): void {
     const endpoint = `${environment.tacoFoods}/category`;
 
     this.appService.getCategories(endpoint)
-    .finally(() => this.loading.categories = false)
-    .subscribe(
-      success => {
-        this.categories = success;
+      .finally(() => this.loading.categories = false)
+      .subscribe(
+        success => {
+          this.categories = success;
 
-        this.categories.push({category: "Todas", id: 'all'})
-      }, error => {
-        error == 500 && 'Listagem indisponível';
-        error == 404 && 'Nenhuma informação por aqui';
-      }
-    )
+          this.categories.push({ category: "Todas", id: 'all' })
+        }, error => {
+          error == 500 && 'Listagem indisponível';
+          error == 404 && 'Nenhuma informação por aqui';
+        }
+      )
   }
 
   idCategory(_event): void {
@@ -68,18 +88,32 @@ export class FoodComponent implements OnInit {
 
     if (idCategory != 'all') {
       this.appService.getFilterCategories(endpoint)
-      .finally(() => this.loading.categories = false)
-      .subscribe(
-        success => {
-          this.foods = success;       
-        }, error => {
-          error == 500 && this.alerts.push({message: 'Listagem indisponível', color: 'alert-danger'});
-          error == 404 && this.alerts.push({message: 'Nenhuma informação por aqui', color: 'alert-warning'});
-        }
-      );
-    }else {
+        .finally(() => this.loading.categories = false)
+        .subscribe(
+          success => {
+            this.foods = success;
+
+            this.setCategories();
+          }, error => {
+            error == 500 && this.alerts.push({ message: 'Listagem indisponível', color: 'alert-danger' });
+            error == 404 && this.alerts.push({ message: 'Nenhuma informação por aqui', color: 'alert-warning' });
+          }
+        );
+    } else {
       this.foodList();
     }
 
+  }
+
+  setCategories(): void{
+    this.foods.map(e => {
+      this.translateCategories.map(i => {
+        if (e.category_id == i.id) {
+          e['category_name'] = i.category;
+        }
+      })
+    })
+
+    console.log(this.foods);
   }
 }

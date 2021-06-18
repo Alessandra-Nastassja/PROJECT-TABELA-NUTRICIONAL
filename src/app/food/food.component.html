@@ -22,12 +22,11 @@
                 <a class="card-title font-weight-bold" data-toggle="modal" data-target="#produtoModal" [innerText]="food.description"
                     [id]="food.id" (click)="idProduto = $event.target.id">
                 </a>
-                <p>
-                    Porção de
-                    <span class="card-text" [innerText]="food.base_qty"></span>
-                    <span class="card-text" [innerText]="food.base_unit"></span>
-                </p>
-                <a class="btn btn-primary float-lg-right btn-sm text-white">+</a>
+                <div class="d-flex justify-content-between align-items-sm-center">
+                    <span class="badge badge-info nowrap" [innerText]="food.category_name"></span>
+                    <a class="btn btn-primary float-lg-right btn-sm text-white ml-1"
+                    style="border-radius: 15px; background-color: #03c89d; border: none; width: 30px;">+</a>
+                </div>
             </div>
         </div>
     </div>
