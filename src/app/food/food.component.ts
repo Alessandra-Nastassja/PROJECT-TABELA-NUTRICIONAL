@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
+declare var $: any;
 
 import { environment } from '../../environments/environment';
 
 import { AppService } from '../app.service';
 import 'rxjs/add/operator/finally';
+
 
 @Component({
   selector: 'app-food',
@@ -58,6 +60,9 @@ export class FoodComponent implements OnInit {
           this.foods = success;
           
           this.setCategories();
+
+          $('[data-toggle="tooltip"]').tooltip();
+
         }, error => {
           error == 500 && 'Listagem indisponível';
           error == 404 && 'Nenhuma informação por aqui';
@@ -74,7 +79,7 @@ export class FoodComponent implements OnInit {
         success => {
           this.categories = success;
 
-          this.categories.push({ category: "Todas", id: 'all' })
+          this.categories.push({ category: "Todas categorias", id: 'all' })
         }, error => {
           error == 500 && 'Listagem indisponível';
           error == 404 && 'Nenhuma informação por aqui';
@@ -113,7 +118,5 @@ export class FoodComponent implements OnInit {
         }
       })
     })
-
-    console.log(this.foods);
   }
 }

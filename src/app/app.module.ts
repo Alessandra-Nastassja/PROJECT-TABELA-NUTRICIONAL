@@ -7,6 +7,7 @@ import { AppComponent } from './app.component';
 import { FoodComponent } from './food/food.component';
 import { ModalComponent } from './modal/modal.component';
 import { AlertComponent } from './alert/alert.component';
+import { TableComponent } from './table/table.component';
 
 @NgModule({
   declarations: [
@@ -14,6 +15,7 @@ import { AlertComponent } from './alert/alert.component';
     FoodComponent,
     ModalComponent,
     AlertComponent,
+    TableComponent,
   ],
   imports: [
     BrowserModule,

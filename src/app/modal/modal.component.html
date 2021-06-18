@@ -54,7 +54,7 @@
                                         <span [innerText]="item.attributes.fiber.unit"></span>
                                     </td>
                                 </ng-container>
-                                <ng-container *ngIf="attr.attribute == 'sodium' && item.attributes.sodium.qty != 'NA'">
+                                <ng-container *ngIf="attr.attribute == 'sodium' && item.attributes.sodium.qty != 'Tr'">
                                     <td [innerText]="attr.name"></td>
                                     <td>{{ item.attributes.sodium.qty | number:'1.2-2' }}
                                         <span [innerText]="item.attributes.sodium.unit"></span>
