@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 import { environment } from '../../environments/environment';
 
@@ -13,26 +13,18 @@ import 'rxjs/add/operator/finally';
 })
 export class FoodComponent implements OnInit {
 
-  loading = {
-    food: true
-  }
-
-  // FIXME: this feature isn't working 
-  @Input() foods;
-  @Output() foodsCategory = new EventEmitter();
+  loading = { food: true, categories: true }
 
   productId: any;
-  toggleBtn = true;
+  categories: Array<Object>
+  foods: Array<Object>
 
   constructor(
     private appService: AppService) { }
 
   ngOnInit() {
     this.foodList();
-  }
-
-  filterFoods(){
-    this.foodsCategory.emit(this.foods);
+    this.categoriesList();
   }
 
   foodList(): void {
@@ -50,7 +42,33 @@ export class FoodComponent implements OnInit {
     );
   }
 
-  toggle(){
-    this.toggleBtn = !this.toggleBtn;
+  categoriesList(): void{
+    const endpoint = `${environment.tacoFoods}/category`;
+
+    this.appService.getCategories(endpoint)
+    .finally(() => this.loading.categories = false)
+    .subscribe(
+      success => {
+        this.categories = success;
+      }, error => {
+        error == 500 && 'Listagem indisponível';
+        error == 404 && 'Nenhuma informação por aqui';
+      }
+    )
+  }
+
+  idCategory(_event): void {
+    let idCategory = _event.target.value;
+    const endpoint = `${environment.tacoFoods}/category/${idCategory}/food`;
+
+    this.appService.getFilterCategories(endpoint).subscribe(
+      success => {
+        this.foods = success;       
+        
+      }, error => {
+        error == 500 && 'Listagem indisponível';
+        error == 404 && 'Nenhuma informação por aqui';
+      }
+    );
   }
 }

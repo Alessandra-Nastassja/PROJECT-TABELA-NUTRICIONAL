@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, OnChanges } from '@angular/core';
+import { Component, Input, OnChanges } from '@angular/core';
 
 import { environment } from '../../environments/environment';
 
@@ -10,21 +10,18 @@ import { AppService } from './../app.service';
   styleUrls: ['./modal.component.scss'],
   providers: [AppService]
 })
-export class ModalComponent implements OnInit, OnChanges {
+export class ModalComponent implements OnChanges {
 
-  loading = {
-    detalheItem: true
-  }
+  loading = { detalheItem: true }
 
   @Input() idProduto = []
+
+  // FIXME: so, try think another thing
   objectNameTranslate: any = []
   infoComida = []
   translate = []
 
   constructor(private appService: AppService) { }
-
-  ngOnInit() {    
-  }
 
   ngOnChanges(){
     this.idProduto && this.getInfoProdutos();

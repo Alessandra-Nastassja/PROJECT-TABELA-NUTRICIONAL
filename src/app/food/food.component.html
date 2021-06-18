@@ -4,8 +4,20 @@
     <span></span>
 </div>
 
+<!-- Filter -->
+<div class="row mt-5">
+    <div class="col-md-5">
+        <select class="custom-select" (change)="idCategory($event)">
+            <option selected disabled>Selecione uma categoria</option>
+            <option [value]="item.id" *ngFor="let item of categories">
+                <span [innerText]="item.category"></span>
+            </option>
+        </select>
+    </div>
+</div>
+
 <!-- Feed de comidas -->
-<div class="row comidas mt-5">
+<div class="row comidas mt-4">
     <div class="col-3 mt-2 mb-2" *ngFor="let food of foods">
         <div class="card" style="width: 14rem;">
             <div class="card-body">
