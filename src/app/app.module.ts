@@ -6,12 +6,14 @@ import { FormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
 import { FoodComponent } from './food/food.component';
 import { ModalComponent } from './modal/modal.component';
+import { MenuComponent } from './menu/menu.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     FoodComponent,
     ModalComponent,
+    MenuComponent,
   ],
   imports: [
     BrowserModule,

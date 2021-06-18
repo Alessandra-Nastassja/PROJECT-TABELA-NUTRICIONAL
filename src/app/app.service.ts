@@ -7,13 +7,13 @@ export class AppService {
 
   constructor(private http: Http) {}
 
-  getCategories() {
-    return this.http.get("http://taco-food-api.herokuapp.com/api/v1/category")
+  getCategories(_endpoint) {
+    return this.http.get(_endpoint)
       .map((res:any) => res.json());   
   }
 
-  getFilterCategories(idCategoria){
-    return this.http.get("https://taco-food-api.herokuapp.com/api/v1/category/"+ idCategoria + "/food")
+  getFilterCategories(_endpoint){
+    return this.http.get(_endpoint)
     .map((res:any) => res.json());
   }
 

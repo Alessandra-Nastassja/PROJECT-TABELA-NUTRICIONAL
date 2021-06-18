@@ -1,5 +1,7 @@
 import { Component, OnInit, Input, OnChanges } from '@angular/core';
 
+import { environment } from '../../environments/environment';
+
 import { AppService } from './../app.service';
 
 @Component({
@@ -25,11 +27,11 @@ export class ModalComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(){
-    this.getInfoProdutos();
+    this.idProduto && this.getInfoProdutos();
   }
 
   getInfoProdutos(){
-    const endpoint = "https://taco-food-api.herokuapp.com/api/v1/food/";
+    const endpoint = `${environment.tacoFoods}/food/`;
 
     this.appService.getFoodById(endpoint, this.idProduto)
     .finally(() => this.loading.detalheItem = false)

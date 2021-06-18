@@ -28,28 +28,6 @@
         }
     }
 }
-
-#item-categoria{
-    background-color: #3350b9;
-    padding: 10px;
-    color: #fff;
-    position: fixed;
-    top: 0;
-    left: 8%;
-    width: 100%;
-    overflow-x: hidden;
-    overflow-y: scroll;
-    height: 100%;
-    z-index: 1000;
-    
-    ul{
-        list-style: none;
-    }
-    a{
-        cursor: pointer;
-    }
-}
-
 .comidas{
     position: relative;
     top: 0;
