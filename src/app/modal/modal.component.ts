@@ -16,6 +16,8 @@ export class ModalComponent implements OnChanges {
 
   @Input() idProduto = []
 
+  alerts = [];
+
   // FIXME: so, try think another thing
   objectNameTranslate: any = []
   infoComida = []
@@ -62,9 +64,8 @@ export class ModalComponent implements OnChanges {
         })
       },
       error => {
-        error == 500 && 'Item indisponível';
-        error == 404 && 'Nenhuma informação por aqui';
+        error == 500 && this.alerts.push({message: 'Listagem indisponível', color: 'alert-danger'});
+        error == 404 && this.alerts.push({message: 'Nenhuma informação por aqui', color: 'alert-warning'});
       });
   }
-
 }

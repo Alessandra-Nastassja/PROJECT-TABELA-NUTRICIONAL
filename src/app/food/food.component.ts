@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 import { environment } from '../../environments/environment';
 
@@ -15,9 +15,12 @@ export class FoodComponent implements OnInit {
 
   loading = { food: true, categories: true }
 
-  productId: any;
+  productId: string;
+
   categories: Array<Object>
   foods: Array<Object>
+
+  alerts = [];
 
   constructor(
     private appService: AppService) { }
@@ -50,6 +53,8 @@ export class FoodComponent implements OnInit {
     .subscribe(
       success => {
         this.categories = success;
+
+        this.categories.push({category: "Todas", id: 'all'})
       }, error => {
         error == 500 && 'Listagem indisponível';
         error == 404 && 'Nenhuma informação por aqui';
@@ -61,14 +66,20 @@ export class FoodComponent implements OnInit {
     let idCategory = _event.target.value;
     const endpoint = `${environment.tacoFoods}/category/${idCategory}/food`;
 
-    this.appService.getFilterCategories(endpoint).subscribe(
-      success => {
-        this.foods = success;       
-        
-      }, error => {
-        error == 500 && 'Listagem indisponível';
-        error == 404 && 'Nenhuma informação por aqui';
-      }
-    );
+    if (idCategory != 'all') {
+      this.appService.getFilterCategories(endpoint)
+      .finally(() => this.loading.categories = false)
+      .subscribe(
+        success => {
+          this.foods = success;       
+        }, error => {
+          error == 500 && this.alerts.push({message: 'Listagem indisponível', color: 'alert-danger'});
+          error == 404 && this.alerts.push({message: 'Nenhuma informação por aqui', color: 'alert-warning'});
+        }
+      );
+    }else {
+      this.foodList();
+    }
+
   }
 }
