@@ -63,6 +63,19 @@
 
                                 <ng-container *ngIf="attr.attribute == 'fatty_acids'">
                                     <td [innerText]="attr.name"></td>
+
+                                    <td *ngIf="attr.subAttribute == 'saturated'">
+                                        {{ item.attributes.fatty_acids.saturated.qty | number:'1.2-2' }}
+                                        <span [innerText]="item.attributes.fatty_acids.saturated.unit"></span>
+                                    </td>
+                                    <td *ngIf="attr.subAttribute == 'monounsaturated'">
+                                        {{ item.attributes.fatty_acids.monounsaturated.qty | number:'1.2-2' }}
+                                        <span [innerText]="item.attributes.fatty_acids.monounsaturated.unit"></span>
+                                    </td>
+                                    <td *ngIf="attr.subAttribute == 'polyunsaturated'">
+                                        {{ item.attributes.fatty_acids.polyunsaturated.qty | number:'1.2-2' }}
+                                        <span [innerText]="item.attributes.fatty_acids.polyunsaturated.unit"></span>
+                                    </td>
                                 </ng-container>
                             </tr>
                         </ng-container>
