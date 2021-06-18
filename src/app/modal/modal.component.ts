@@ -17,55 +17,52 @@ export class ModalComponent implements OnChanges {
   @Input() idProduto = []
 
   alerts = [];
+  detalheFood = []
 
-  // FIXME: so, try think another thing
-  objectNameTranslate: any = []
-  infoComida = []
-  translate = []
+  translateAttr = [
+    { id: 1, name: 'Valor energético', attribute: 'energy' },
+    { id: 2, name: 'Carboidratos', attribute: 'carbohydrate' },
+    { id: 3, name: 'Proteínas', attribute: 'protein' },
+    { id: 4, name: 'Gorduras totais', attribute: 'fatty_acids', subAttribute: 'monounsaturated' },
+    { id: 5, name: 'Gorduras saturadas', attribute: 'fatty_acids', subAttribute: 'saturated' },
+    { id: 6, name: 'Gorduras trans', attribute: 'fatty_acids', subAttribute: 'polyunsaturated' },
+    { id: 7, name: 'Fibra alimentar', attribute: 'fiber' },
+    { id: 8, name: 'Sódio', attribute: 'sodium' },
+  ]
 
   constructor(private appService: AppService) { }
 
-  ngOnChanges(){
+  ngOnChanges() {
     this.idProduto && this.getInfoProdutos();
   }
 
-  getInfoProdutos(){
+  getInfoProdutos() {
     const endpoint = `${environment.tacoFoods}/food/`;
 
     this.appService.getFoodById(endpoint, this.idProduto)
-    .finally(() => this.loading.detalheItem = false)
-    .subscribe(
-      success => {
-        this.infoComida = success;
-        this.translate = this.infoComida[0].attributes
-        let objectName = (Object.keys(this.translate))
+      .finally(() => this.loading.detalheItem = false)
+      .subscribe(
+        success => {
+          this.detalheFood = success;
 
+          let attributes = this.detalheFood[0].attributes;
 
-        objectName.forEach(e => {
-          switch (e) {
-            case 'calcium':
-              this.objectNameTranslate.push('Cálcio')
-              break;
-            case 'protein':
-              this.objectNameTranslate.push('Proteína')
-              break;
-            case 'potassium':
-              this.objectNameTranslate.push('Potássio')
-              break;
-            case 'manganese':
-              this.objectNameTranslate.push('Manganês')
-              break;
-            case 'phosphorus':
-              this.objectNameTranslate.push('Fósforo')
-              break;
-            default:
-              break;
-          }
-        })
-      },
-      error => {
-        error == 500 && this.alerts.push({message: 'Listagem indisponível', color: 'alert-danger'});
-        error == 404 && this.alerts.push({message: 'Nenhuma informação por aqui', color: 'alert-warning'});
-      });
+          let newAtrribute = [];
+          this.translateAttr.map(e => {
+            for (var key in attributes) {
+
+              if (e.attribute == key) {
+                newAtrribute.push(e)
+              }
+            }
+          })
+               
+          this.detalheFood[0]['translateAttr'] = newAtrribute;
+
+        },
+        error => {
+          error == 500 && this.alerts.push({ message: 'Listagem indisponível', color: 'alert-danger' });
+          error == 404 && this.alerts.push({ message: 'Nenhuma informação por aqui', color: 'alert-warning' });
+        });
   }
 }
