@@ -35,13 +35,23 @@
         font-size: 0.8em;
     }
 }
-
-.no-display{
-    display: none !important;
-}
 table tbody tr td:nth-child(+n+2){
     text-align: center;
 }
 .card{
     cursor: pointer !important;
+}
+
+.nowrap{
+    white-space: nowrap; 
+    width: 12em; 
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.buttonFood{
+    border-radius: 15px; 
+    background-color: #03c89d; 
+    border: none; 
+    width: 30px;
 }

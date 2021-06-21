@@ -1,16 +1,25 @@
 <app-modal [idProduto]="idProduto"></app-modal>
+
+<h2>Tabela nutricional</h2>
+
 <app-alert [alerts]="alerts"></app-alert>
+<app-table [viewTable]="viewTable"></app-table>
 
 <!-- Filter -->
-<div class="row mt-5">
+<div class="row mt-3">
     <div class="col-md-5">
         <small>Selecione uma categoria:</small>
-        <select class="custom-select" (change)="idCategory($event)">
+        <select class="custom-select" (change)="idCategory($event)" [disabled]="loading.categories">
             <option selected disabled>Escolha uma categoria</option>
             <option [value]="item.id" *ngFor="let item of categories">
                 <span [innerText]="item.category"></span>
             </option>
         </select>
+    </div>
+    <div class="col-md-2 offset-5">
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#createTable">
+            Listagem de itens
+        </button>
     </div>
 </div>
 
@@ -19,15 +28,18 @@
     <div class="col-3 mt-2 mb-2" *ngFor="let food of foods">
         <div class="card" style="width: 14rem;">
             <div class="card-body">
-                <a class="card-title" data-toggle="modal" data-target="#produtoModal" [innerText]="food.description"
-                    [id]="food.id" (click)="idProduto = $event.target.id">
+                <a class="card-title font-weight-bold" data-toggle="modal" data-target="#produtoModal"
+                    [innerText]="food.description" [id]="food.id" (click)="idProduto = $event.target.id">
                 </a>
-                <p>
-                    Porção de
-                    <span class="card-text" [innerText]="food.base_qty"></span>
-                    <span class="card-text" [innerText]="food.base_unit"></span>
-                </p>
-                <a class="btn btn-primary float-lg-right btn-sm text-white">+</a>
+                <div class="d-flex justify-content-between align-items-sm-center mb-1">
+                    <small class="badge badge-info nowrap" [innerText]="food.category_name"
+                        style="font-size: 10px;"></small>
+                </div>
+                <p [innerText]="'Calorias: ' + (food.attributes.energy.kcal)"></p>
+                <a data-toggle="modal" data-target="#createTable"
+                    class="btn btn-primary float-lg-right btn-sm text-white ml-1 buttonFood" (click)="setTable(food)">
+                    +
+                </a>
             </div>
         </div>
     </div>

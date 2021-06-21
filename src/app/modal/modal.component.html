@@ -1,65 +1,84 @@
 <!-- Modal -->
 <div class="modal fade" id="produtoModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
     aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content" *ngFor="let item of infoComida">
+    <div class="modal-dialog" role="document" [ngClass]="loading.detalheItem ? 'loading': ''">
+        <div class="modal-content" *ngFor="let item of detalheFood; let index">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel" [innerText]="item.description"></h5>
+                <h4 class="modal-title font-weight-bold" id="exampleModalLabel">Informações nutricional</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <div class="modal-body">
-                <table class="table">
+            <div class="modal-body" *ngIf="item.description">
+                <div class="d-flex justify-content-center">
+                    <p class="h5" [innerText]="item.description"></p>
+                    <small class="ml-2">
+                        (Porção de 
+                        <span [innerText]="item.base_qty"></span>
+                        <span [innerText]="item.base_unit"></span>)
+                    </small>
+                </div>
+                <table class="table mt-2">
                     <thead>
                         <tr>
                             <th colspan="2">Quantidade por porção</th>
-                            <th>%VD(*)</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td [innerText]="objectNameTranslate[0]"></td>
-                            <td>{{ item.attributes.energy?.kcal | number:'1.2-2' }}
-                                <span> kcal = </span>
-                                {{ item.attributes.energy?.kj | number:'1.2-2' }}
-                                <span> kj </span>
-                            </td>
-                            <td>{{ item.attributes.carbohydrate?.qty | number:'1.0-0' }}
-                            </td>
-                        </tr>
-                        <tr>
-                            <td [innerText]="objectNameTranslate[1]"></td>
-                            <td>{{ item.attributes.carbohydrate?.qty | number:'1.2-2' }}
-                                <span> kcal</span>
-                            </td>
-                            <td>{{ item.attributes.carbohydrate?.qty | number:'1.0-0' }}
-                            </td>
-                        </tr>
-                        <tr>
-                            <td [innerText]="objectNameTranslate[2]"></td>
-                            <td>{{ item.attributes.protein?.qty | number:'1.2-2' }}
-                                <span> kcal</span>
-                            </td>
-                            <td>{{ item.attributes.carbohydrate?.qty | number:'1.0-0' }}
-                            </td>
-                        </tr>
-                        <tr>
-                            <td [innerText]="objectNameTranslate[3]"></td>
-                            <td>{{ item.attributes.fatty_acids?.saturated.qty}}
-                                <span>{{ item.attributes.carbohydrate?.unit }}</span>
-                            </td>
-                            <td>{{ item.attributes.carbohydrate?.qty | number:'1.0-0' }}
-                            </td>
-                        </tr>
-                        <tr>
-                            <td [innerText]="objectNameTranslate[4]"></td>
-                            <td>{{ item.attributes.energy?.kcal | number:'1.2-2' }}
-                                <span> kcal</span>
-                            </td>
-                            <td>{{ item.attributes.carbohydrate?.qty | number: '1.0-0' }}
-                            </td>
-                        </tr>
+                        <ng-container *ngFor="let attr of item.translateAttr">
+                            <tr>
+                                <ng-container *ngIf="attr.attribute == 'energy'">
+                                    <td [innerText]="attr.name"></td>
+                                    <td>
+                                        <span [innerText]="(item.attributes.energy.kcal | number:'1.2-2') + ' kcal = '"></span>
+                                        <span [innerText]="(item.attributes.energy.kj | number:'1.2-2') + ' kj'"></span>
+                                    </td>
+                                </ng-container>
+
+                                <ng-container *ngIf="attr.attribute == 'carbohydrate' && item.attributes.carbohydrate.qty != 'NA'">
+                                    <td [innerText]="attr.name"></td>
+                                    <td>{{ item.attributes.carbohydrate.qty | number:'1.2-2' }}
+                                        <span [innerText]="item.attributes.carbohydrate.unit"></span>
+                                    </td>
+                                </ng-container>
+                                <ng-container *ngIf="attr.attribute == 'protein' && item.attributes.protein.qty != 'NA'">
+                                    <td [innerText]="attr.name"></td>
+                                    <td>{{ item.attributes.protein.qty | number:'1.2-2' }}
+                                        <span [innerText]="item.attributes.protein.unit"></span>
+                                    </td>
+                                </ng-container>
+                                <ng-container *ngIf="attr.attribute == 'fiber' && item.attributes.fiber.qty != 'NA'">
+                                    <td [innerText]="attr.name"></td>
+                                    <td>{{ item.attributes.fiber.qty | number:'1.2-2' }}
+                                        <span [innerText]="item.attributes.fiber.unit"></span>
+                                    </td>
+                                </ng-container>
+                                <ng-container *ngIf="attr.attribute == 'sodium' && item.attributes.sodium.qty != 'Tr'">
+                                    <td [innerText]="attr.name"></td>
+                                    <td>{{ item.attributes.sodium.qty | number:'1.2-2' }}
+                                        <span [innerText]="item.attributes.sodium.unit"></span>
+                                    </td>
+                                </ng-container>
+
+                                <ng-container *ngIf="attr.attribute == 'fatty_acids'">
+                                    <td [innerText]="attr.name"></td>
+
+                                    <td *ngIf="attr.subAttribute == 'saturated'">
+                                        {{ item.attributes.fatty_acids.saturated.qty | number:'1.2-2' }}
+                                        <span [innerText]="item.attributes.fatty_acids.saturated.unit"></span>
+                                    </td>
+                                    <td *ngIf="attr.subAttribute == 'monounsaturated'">
+                                        {{ item.attributes.fatty_acids.monounsaturated.qty | number:'1.2-2' }}
+                                        <span [innerText]="item.attributes.fatty_acids.monounsaturated.unit"></span>
+                                    </td>
+                                    <td *ngIf="attr.subAttribute == 'polyunsaturated'">
+                                        {{ item.attributes.fatty_acids.polyunsaturated.qty | number:'1.2-2' }}
+                                        <span [innerText]="item.attributes.fatty_acids.polyunsaturated.unit"></span>
+                                    </td>
+                                </ng-container>
+                            </tr>
+                        </ng-container>
+                        
                     </tbody>
                     <tfoot>
                         <tr>

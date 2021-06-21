@@ -6,23 +6,30 @@ import { FormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
 import { FoodComponent } from './food/food.component';
 import { ModalComponent } from './modal/modal.component';
-import { MenuComponent } from './menu/menu.component';
 import { AlertComponent } from './alert/alert.component';
+import { TableComponent } from './table/table.component';
+
+import { environment } from 'src/environments/environment';
+
+import { AngularFireModule } from 'angularfire2';
+import { TableService } from './table/table.service';
+import { FoodService } from './food/food.service';
 
 @NgModule({
   declarations: [
     AppComponent,
     FoodComponent,
     ModalComponent,
-    MenuComponent,
     AlertComponent,
+    TableComponent,
   ],
   imports: [
     BrowserModule,
     HttpModule,
-    FormsModule
+    FormsModule,
+    AngularFireModule.initializeApp(environment.firebase)
   ],
-  providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  providers: [TableService, FoodService]
 })
 export class AppModule { }
