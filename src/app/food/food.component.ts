@@ -4,14 +4,18 @@ declare var $: any;
 import { environment } from '../../environments/environment';
 
 import { AppService } from '../app.service';
+import { FoodService } from './food.service';
+
 import 'rxjs/add/operator/finally';
+import { Table } from '../table/table.models';
+import { AngularFirestore } from 'angularfire2/firestore';
 
 
 @Component({
   selector: 'app-food',
   templateUrl: './food.component.html',
   styleUrls: ['./food.component.scss'],
-  providers: [AppService]
+  providers: [AngularFirestore, AppService, FoodService]
 })
 export class FoodComponent implements OnInit {
 
@@ -21,6 +25,8 @@ export class FoodComponent implements OnInit {
 
   categories: Array<Object>
   foods: any
+
+  addFood: Table;
 
   alerts = [];
 
@@ -42,8 +48,11 @@ export class FoodComponent implements OnInit {
     { id: 15, category: "Nozes e sementes" }
   ]
 
+  viewTable = false
+
   constructor(
-    private appService: AppService) { }
+    private appService: AppService,
+    private foodService: FoodService) { }
 
   ngOnInit() {
     this.foodList();
@@ -118,5 +127,23 @@ export class FoodComponent implements OnInit {
         }
       })
     })
+  }
+
+  setTable(_food){
+    this.viewTable = true;
+
+    let obj = {
+      id: '', 
+      name: _food.description,
+      energy: _food.attributes.energy.kcal
+    }
+
+    this.foodService.create(obj)
+    .then(() => {
+      this.alerts.push({ message: 'Item adicionado com sucesso!', color: 'alert-success' });
+    }).catch((error) => {
+      error == 500 && this.alerts.push({ message: 'Listagem indisponível', color: 'alert-danger' });
+      error == 404 && this.alerts.push({ message: 'Nenhuma informação por aqui', color: 'alert-warning' });
+    });
   }
 }

@@ -3,7 +3,7 @@
 <h2>Tabela nutricional</h2>
 
 <app-alert [alerts]="alerts"></app-alert>
-<!-- <app-table></app-table> -->
+<app-table [viewTable]="viewTable"></app-table>
 
 <!-- Filter -->
 <div class="row mt-3">
@@ -16,6 +16,11 @@
             </option>
         </select>
     </div>
+    <div class="col-md-5">
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#createTable">
+            Listagem de itens
+        </button>
+    </div>
 </div>
 
 <!-- Feed de comidas -->
@@ -27,11 +32,12 @@
                     [innerText]="food.description" [id]="food.id" (click)="idProduto = $event.target.id">
                 </a>
                 <div class="d-flex justify-content-between align-items-sm-center mb-1">
-                    <small class="badge badge-info nowrap" [innerText]="food.category_name" style="font-size: 10px;"></small>
+                    <small class="badge badge-info nowrap" [innerText]="food.category_name"
+                        style="font-size: 10px;"></small>
                 </div>
                 <p [innerText]="'Calorias: ' + (food.attributes.energy.kcal)"></p>
-                <a class="btn btn-primary float-lg-right btn-sm text-white ml-1 buttonFood" data-toggle="tooltip"
-                    data-placement="top" title="Adicione na tabela">
+                <a data-toggle="modal" data-target="#createTable"
+                    class="btn btn-primary float-lg-right btn-sm text-white ml-1 buttonFood" (click)="setTable(food)">
                     +
                 </a>
             </div>

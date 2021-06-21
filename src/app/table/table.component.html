@@ -1,20 +1,41 @@
-<div class="card">
-    <div class="p-3">
-        <p class="h5">Criar tabela</p>
-        <table class="table mt-4">
-            <thead>
-                <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Valor energético</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <th scope="row"></th>
-                    <td></td>
-                </tr>
-            </tbody>
+<div class="modal fade" id="createTable" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Criar tabela</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <table class="table mt-4" *ngIf="foodsTable$; else templateNone">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Valor energético</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let food of foodsTable$ | async">
+              <th scope="row" [innerText]="food.name"></th>
+              <td [innerText]="(food.energy | number:'1.2-2') + 'kcal'"></td>
+              <td>
+                <a class="btn btn-primary float-lg-right btn-sm text-white ml-1 buttonFoodRemove" data-toggle="tooltip"
+                  data-placement="top" title="Adicione na tabela" (click)="deleteFood(food)">
+                  x
+                </a>
+              </td>
+            </tr>
+          </tbody>
         </table>
+        <ng-template #templateNone>
+          <div class="alert alert-secondary" role="alert">
+            Nenhuma informação por aqui ;)
+          </div>
 
+        </ng-template>
+      </div>
     </div>
+  </div>
 </div>
